@@ -1,5 +1,6 @@
 package com.example.paul.testconect;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,14 +29,22 @@ public class Main extends Activity implements OnClickListener {
         findViewById(R.id.my_button).setOnClickListener(this);
     }
 
+
+    private EditText ingredient;
+    private String ingredientStr;
+    @SuppressLint("WrongViewCast")
     @Override
+
     public void onClick(View arg0) {
+
         Button b = (Button)findViewById(R.id.my_button);
+        ingredient = (EditText) findViewById(R.id.editText);
+        ingredientStr = ingredient.getText().toString();
         b.setClickable(false);
-        new LongRunningGetIO().execute();
+        new Connector().execute();
     }
 
-    private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
+    private class Connector extends AsyncTask <Void, Void, String> {
 
         protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
             InputStream in = entity.getContent();
@@ -54,7 +63,7 @@ public class Main extends Activity implements OnClickListener {
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
-            HttpGet httpGet = new HttpGet("http://api.campbellskitchen.com/brandservice.svc/api/search?ingredient=onion&format=xml&app_id=56716e32&app_key=92153bbdf5604fb6a663e1eb2778f8a7");
+            HttpGet httpGet = new HttpGet("http://api.campbellskitchen.com/brandservice.svc/api/search?ingredient="+ ingredientStr+"&format=xml&app_id=56716e32&app_key=92153bbdf5604fb6a663e1eb2778f8a7");
             String text = null;
             try {
                 HttpResponse response = httpClient.execute(httpGet, localContext);
