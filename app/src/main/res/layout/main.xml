@@ -3,15 +3,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    <TextView
-        android:layout_width="fill_parent"
+
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Http GET Demo"/>
+        android:id="@+id/editText"
+        android:layout_gravity="center_horizontal"
+        android:hint="Enter Ingredient" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="GET"
+        android:text="Search"
         android:id="@+id/my_button"/>
     <EditText
         android:layout_margin="20dip"
